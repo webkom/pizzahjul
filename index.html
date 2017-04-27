@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pizzahjulet</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow {
+      font-size: 0;
+      width: 0;
+      height: 0;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-right:100px solid #000;
+    }
+
+    .result {
+      display: flex;
+      width: 200px;
+      transform: translateX(20px);
+    }
+
+    button {
+      flex: 1;
+      font-size: 20px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <div class="result">
+      <div class="arrow"></div>
+      <button>Spin</button>
+    </div>
+    <script src="spinning-wheel.js"></script>
+  </body>
+</html>
