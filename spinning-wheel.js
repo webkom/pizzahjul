@@ -1,6 +1,7 @@
 const canvas = document.querySelector('canvas');
-canvas.width = window.innerHeight;
-canvas.height = window.innerHeight;
+const winner = document.querySelector('#winner');
+canvas.width = window.innerHeight - 50;
+canvas.height = window.innerHeight - 50;
 const context = canvas.getContext('2d');
 
 const values = [
@@ -34,18 +35,29 @@ const values = [
   '28 HOTTENTOTTEN'
 ];
 
-const draw = speed => {
+const colors = ['#771816', '#FFE79F', '#FFD57F', '#F7AC00']
+
+const draw = rotate => {
   context.clearRect(0, 0, canvas.width, canvas.height);
+
+  context.translate(canvas.width / 2, canvas.height / 2);
+  context.rotate(rotate);
+  context.translate(-canvas.width / 2, -canvas.height / 2);
+
+  context.fillStyle = '#db9704';
+  context.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, 0, 2 * Math.PI);
+  context.fill();
 
   values.forEach((value, i) => {
     const radian = 2 * Math.PI / values.length;
     context.fillStyle = `hsl(${i / values.length * 360}, 83%, 60%)`;
+    context.fillStyle = colors[i % colors.length];
     context.beginPath();
     context.moveTo(canvas.width / 2, canvas.height / 2);
     context.arc(
       canvas.width / 2,
       canvas.height / 2,
-      canvas.height / 2,
+      canvas.height / 2 - 10,
       radian * i,
       radian * (i + 1),
       false
@@ -65,37 +77,39 @@ const draw = speed => {
     context.restore();
   });
 
-  context.translate(canvas.width / 2, canvas.height / 2);
-  context.rotate(speed * Math.PI / 180);
-  context.translate(-canvas.width / 2, -canvas.height / 2);
+
 };
 
-const run = running => {
+let startAngle = Math.random() * Math.PI;
+let current = startAngle;
+
+const run = (speed, duration) => {
   let start = performance.now();
-  let speed = 0;
+  let angle = startAngle;
 
-  const render = () => {
-    let now = performance.now();
-    const t = (now - start) / 1000;
-    speed = t < 5 ? t * t * 3 : speed * 0.98;
+  const render = (now) => {
+    let t = (now - start) / (1000 * duration);
 
-    draw(speed);
+    t = Math.min(1, t);
+    angle = speed * (1 - t);
 
-    if (running) {
+    current = (current + angle) % (Math.PI * 2);
+
+    draw(angle);
+
+    if (t < 1) {
       requestAnimationFrame(render);
+    } else {
+      const selected = (values.length - Math.floor(current / ( 2 * Math.PI / values.length)));
+      winner.innerText = values[selected - 1];
     }
   };
 
-  setTimeout(() => {
-    running = false;
-  }, 15000);
-
-  render();
+  requestAnimationFrame(render);
 };
 
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-  run(true);
+canvas.addEventListener('click', () => {
+  run(Math.min(0.4, Math.floor(Math.random() * 10) / 10), 5);
 });
 
-run(false);
+draw(startAngle);
