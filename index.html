@@ -7,6 +7,7 @@
     * {
       margin: 0;
       padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
@@ -14,7 +15,8 @@
       align-items: center;
       background: linear-gradient(#FFE79F, #F7AC00, #FFD57F);
       padding: 25px;
-      font-family: 'Helvetica Neue', sans-serif;
+      font-family: system-ui, sans-serif;
+      color: #333;
     }
 
     .arrow {
@@ -47,6 +49,36 @@
       background: transparent;
       cursor: pointer;
     }
+
+    form {
+      padding: 10px;
+      background: rgba(0, 0, 0, .1);
+    }
+
+    input[type=range] {
+      width: 100%;
+      margin: 5px 0;
+    }
+
+    textarea {
+      width: 240px;
+      height: 250px;
+      font-size: 16px;
+      border: 0;
+      padding: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      border: 3px solid rgba(255, 255, 255, 0.4)
+    }
+
+    button[type=submit] {
+      background: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      padding: 5px;
+      display: block;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 700;
+    }
     </style>
   </head>
   <body>
@@ -55,6 +87,11 @@
       <div class="arrow"></div>
       <div id="winner">Click to spin</div>
     </div>
+    <form class="control-center">
+      <textarea name="values" id="values"></textarea>
+      <input type="range" min="1" max="30" name="duration" id="duration" />
+      <button type="submit">Update</button>
+    </form>
     <script src="spinning-wheel.js"></script>
   </body>
 </html>
