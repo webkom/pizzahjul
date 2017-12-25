@@ -45,8 +45,9 @@ const parseParticipants = participants =>
     .split('\n')
     .filter(Boolean)
     .map(participant => {
-      if (/(\w+) (\d+)/.test(participant)) {
-        return participant.trim().split(' ');
+      let match;
+      if ((match = participant.match(/^([\w- ]+) (\d+)/))) {
+        return match.slice(1);
       }
 
       return [participant, 1];
