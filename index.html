@@ -13,9 +13,10 @@
     body {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       background: linear-gradient(#FFE79F, #F7AC00, #FFD57F);
       padding: 25px;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, 'Helvetica', sans-serif;
       color: #333;
     }
 
@@ -25,14 +26,14 @@
       height: 0;
       border-top: 20px solid transparent;
       border-bottom: 20px solid transparent;
-      border-right:140px solid #762018;
+      border-right: 140px solid #762018;
     }
 
     .result {
       display: flex;
       transform: translateX(-10px);
-      width: 100%;
       align-items: center;
+      flex: 1;
     }
 
     #winner {
@@ -53,6 +54,7 @@
     form {
       padding: 10px;
       background: rgba(0, 0, 0, .1);
+      flex: 0;
     }
 
     input[type=range] {

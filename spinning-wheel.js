@@ -114,7 +114,7 @@ const parseParticipants = participants =>
 
       context.fillStyle = 'black';
       context.textAlign = 'right';
-      context.font = `16px system-ui`;
+      context.font = `16px system-ui, Helvetica, Arial`;
       context.fillText(value, dx, 5);
       context.restore();
     });
